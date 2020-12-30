@@ -1,0 +1,97 @@
+{% extends "proyectoApp/based.html" %}
+
+{% load static %}
+{% block act3 %}
+class="active"
+{% endblock act3 %}
+{% block dash %}
+
+<div class="col-md-10 offset-md-1 col-lg-8 offset-lg-0">
+  <!-- Recently Favorited -->
+  <div class="widget dashboard-container my-adslist">
+    <h3 class="widget-header">Tus pedidos</h3>
+    <table class="table table-responsive product-dashboard-table">
+      <thead>
+        <tr>
+          <th>Imagen</th>
+          <th>Producto</th>
+          <th class="text-center">Cliente</th>
+          <th class="text-center">Acción</th>
+        </tr>
+        
+      </thead>
+      <tbody>
+
+
+        {% for p in entity %}
+        <tr>
+
+          <td class="product-thumb">
+            <img width="80px" height="auto" style="object-fit: contain;"  src="{{p.item.imagen.url}}" alt="image description"></td>
+          <td class="product-details">
+            <h3 class="title">{{p.item.titulo}}</h3>
+            <span class="add-id"><strong>Ad ID:</strong>{{p.id}}</span>
+            <span><strong>Fecha: </strong><time>{{p.created}}</time> </span>
+            {% if p.enviado == True %}
+            <span class="status active"><strong>Status</strong>Enviado</span>
+            {% else %}
+            <span style="color: red;"  class="status "><strong>Status</strong>Pendiente</span> 
+            {% endif %}
+            
+            <span class="location"><strong>Cantidad</strong>{{p.cantidad}}</span>
+            <span class="location"><strong>Precio</strong>${{p.precio}}</span>
+          </td>
+          <td class="product-category"><span class="categories">{{p.cliente.username}}</span></td>
+          <td class="action" data-title="Action">
+            <div class="">
+              <ul class="list-inline justify-content-center">
+                <li class="list-inline-item">
+                  <a data-toggle="tooltip" data-placement="top" title="ver" class="view" href="{% url 'solo' p.item.id %}">
+                    <i class="fa fa-eye"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="edit" data-toggle="tooltip" data-placement="top" title="Editar" data-toggle="modal" data-target="#modlax" href="">
+                    <i class="fa fa-pencil"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="delete" data-toggle="tooltip" data-placement="top" title="Eliminar" onclick="abrir_modalpe('{% url 'modalpe' p.id %}')">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </div>
+
+  <!-- pagination -->
+  <div class="pagination justify-content-center">
+          {% include 'proyectoApp/paginator.html' %}
+          </div>
+  <!-- pagination -->
+
+</div>
+  <div class="modal fade" id="pedi" role="dialog">
+
+  </div>
+
+
+
+{% endblock dash %}
+
+{% block extrajs %}
+<script type="text/javascript">
+  function abrir_modalpe(url){
+    $('#pedi').load(url, function(){
+      $(this).modal('show');
+    });
+  }
+</script>
+{% endblock extrajs %}

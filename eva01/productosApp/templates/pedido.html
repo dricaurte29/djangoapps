@@ -1,0 +1,110 @@
+
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Pedido {{pedido.id}}</h2>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            
+        </div>
+        <form action="" method="POST">
+            {% csrf_token %}
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" style="height: 11rem; width: 17rem; object-fit: contain;" src="{{producto.imagen.url}}" alt="Card image cap">
+                        <div class="card-body">
+                          <h5 class="card-title">{{producto.titulo}}</h5>
+                            <div class="row mt-4">
+                                <div class="col-md-5 align-self-center">
+                                    <span> <strong>Cantidad:</strong></span>
+                                </div>
+                                <div class="col-md-3"></div>
+                                <div class="col-md-4">
+                                    <select name="cantidad" id="cantidad" class="form-control w-100" oninput="calc()">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-5 align-self-center">
+                                    <span> <strong>TOTAL:</strong></span>
+                                </div>
+                                <div class="col-md-3"></div>
+                                <input style="display: none;"  value="{{user.id}}" type="number" name="usid" readonly class="form-control-plaintext" id="usid" >
+                                <input style="display: none;"  type="number" name="total" readonly class="form-control-plaintext" id="total" >
+                                <div class="col-md-4">
+                                    
+                                    <input type="text" readonly class="form-control-plaintext" id="totale" >
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-7">
+                    <fieldset class="pr-2">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-6 py-2">
+                                    <input type="text" placeholder="Nombre *" value="{{user.username}}" name="nombre" class="form-control" required>
+                                </div>
+                                <div class="col-lg-6 pt-2">
+                                    <input type="email" placeholder="Email *" value="{{user.email}}" name="email" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col pt-2">
+                                    <input type="tel" placeholder="Número de contacto *" name="contacto" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                            <input type="text" placeholder="Dirección de envio" name="direccion" class="form-control" required>
+                            </div>
+                        </div>
+        
+
+            
+                        <textarea name="detalle" id=""  placeholder="Escribe aquí los detalles de tu pedido..." class="border w-100 p-3 mt-3 mt-lg-4"></textarea>
+
+                    </fieldset>
+                </div>  
+
+            </div>
+        <div style="align-items: center;" class="modal-footer">
+            
+            <button  type="submit" class="btn btn-primary " >Pedir</button>
+            
+        </div>
+
+        </div>
+        </form>
+</div>
+
+    <script type="text/javascript">
+        function calc(){
+          var a = parseInt(document.getElementById("cantidad").value),
+            b = parseInt({{producto.precio}});
+            c = a*b;
+            d = c.toString();
+            document.getElementById("total").value = c;
+            document.getElementById("totale").value = "$"+d;
+
+        }
+        window.onload = calc()
+
+    </script>
+
+
