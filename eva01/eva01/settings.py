@@ -26,7 +26,7 @@ SECRET_KEY = '5x_053l7v6ao120*-l2&88+-_jr7pqjmjrxe8uhu(7w%-yg8k7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.21','127.0.0.1']
+ALLOWED_HOSTS = ['212.1.214.101','muestra.store','www.muestra.store']
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 
 # Application definition
@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'eva01.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'developer',
+        'USER': 'david',
+        'PASSWORD': 'cundinamarca89',
+        'PORT': 5432,
+        'HOST': 'localhost',
     }
 }
 
